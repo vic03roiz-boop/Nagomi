@@ -1,0 +1,64 @@
+🍵 NAGOMI — le bot du serveur
+================================
+
+CE QU'IL Y A DANS LES DOSSIERS
+  index.js        → démarre le bot. Tu n'y touches JAMAIS.
+  commandes/      → UNE commande = UN fichier qui porte son nom (ex : ban.js = /ban)
+      membres/      /aide /ping /avatar /userinfo /serverinfo
+      moderation/   /ban /unban /kick /mute /unmute /warn /warns /unwarn /clear /lock /unlock /slowmode
+      serveur/      /setup /config /embed /dire /emoji /reactionrole /autorole
+  systemes/       → ce qui tourne tout seul (rôles-réactions, rôles automatiques…)
+  reglages/       → ce que TU peux changer : couleurs.js, textes.js, structure.js (le plan des salons)
+  outils/         → petits morceaux partagés (tu n'as pas à y toucher)
+  donnees/        → les sauvegardes du bot (créé tout seul)
+
+POUR AJOUTER UNE COMMANDE PLUS TARD
+  Dépose un fichier dans le bon dossier de commandes/. Rien d'autre à modifier.
+
+──────────────────────────────────────────────
+MISE EN LIGNE (une seule fois)
+──────────────────────────────────────────────
+1) Portail développeur Discord (discord.com/developers/applications)
+   → "New Application" → nom : Nagomi
+   → onglet "Bot" : "Reset Token" puis COPIE le token (garde-le secret !)
+   → toujours dans "Bot", descends à "Privileged Gateway Intents" et active :
+        ✔ SERVER MEMBERS INTENT
+   → "Save Changes"
+
+2) Inviter le bot sur ton serveur
+   → onglet "OAuth2" → "URL Generator"
+   → coche "bot" ET "applications.commands"
+   → en dessous, coche "Administrator"
+   → copie le lien en bas, ouvre-le, choisis ton serveur Nagomi
+
+3) GitHub : crée un NOUVEAU dépôt (ex : nagomi-bot) et glisse-y TOUT le contenu
+   de ce dossier (index.js, package.json, commandes, systemes, reglages, outils…).
+   Ne glisse PAS le dossier node_modules.
+
+4) Railway : "New Project" → "Deploy from GitHub repo" → choisis nagomi-bot
+   → onglet "Variables" → ajoute :
+        DISCORD_TOKEN  =  (le token copié à l'étape 1)
+        GUILD_ID       =  (l'ID de ton serveur : clic droit sur le serveur → Copier l'identifiant)
+   → onglet "Settings" → "Volumes" → ajoute un volume monté sur  /app/data
+     (sinon les avertissements et réglages sont perdus à chaque redémarrage)
+
+5) Dans les logs Railway tu dois voir :
+        🍵 Nagomi est prête : 24 commandes …
+
+──────────────────────────────────────────────
+PREMIER PARAMÉTRAGE DU SERVEUR
+──────────────────────────────────────────────
+1. Dans Discord : Paramètres du serveur → Rôles → glisse le rôle "Nagomi" (le bot) tout en HAUT.
+2. Tape /setup → bouton "Créer la structure" : rôles + catégories + salons + permissions.
+3. Tape /config pour vérifier le salon des logs, le rôle Équipe, le rôle Membre.
+4. Écris le règlement : /embed (un formulaire s'ouvre : titre, texte, couleur, image).
+5. Donne le rôle ✦ Membre : poste un message dans le règlement, puis
+   /reactionrole action:ajouter message:(lien du message) emoji:🌸 role:✦ Membre
+6. Tes émojis : /emoji nom:thé image:(fichier)   ou colle un émoji d'un autre serveur.
+
+──────────────────────────────────────────────
+SI ÇA NE MARCHE PAS
+──────────────────────────────────────────────
+• "Missing Permissions" → le rôle du bot n'est pas assez haut (voir étape 1).
+• Les commandes n'apparaissent pas → vérifie GUILD_ID et le lien d'invitation (applications.commands).
+• Le bot ne démarre pas → regarde les logs Railway et envoie-moi la ligne d'erreur.
