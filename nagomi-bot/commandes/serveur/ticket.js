@@ -98,8 +98,9 @@ async function fermerTicket(i, t) {
     await logs.send({ embeds: [e], files: [fichier()] }).catch(() => {});
   }
   const membre = await i.client.users.fetch(t.userId).catch(() => null);
-  await membre?.send({ embeds: [new EmbedBuilder().setColor(couleurs.rose).setTitle(`🎫 Ton ticket #${t.id} est fermé`)
-    .setDescription(`Merci d'avoir contacté l'équipe de **${i.guild.name}** 🌸\nVoici la conversation, au cas où.`).setFooter({ text: textes.pied })], files: [fichier()] }).catch(() => {});
+  await membre?.send({ embeds: [new EmbedBuilder().setColor(couleurs.rose).setTitle(`🎫 Ticket #${t.id} fermé`)
+    .setDescription(`${d1}  Merci ${membre.displayName} !  ${d2}\n\nTon ticket sur **${i.guild.name}** a bien été fermé. Merci de nous avoir contactés 🌸\nSi tu as encore besoin de nous, tu peux en rouvrir un quand tu veux.`)
+    .setFooter({ text: textes.pied })] }).catch(() => {});
   setTimeout(() => salon.delete(`Ticket #${t.id} fermé`).catch(() => {}), 4000);
 }
 
