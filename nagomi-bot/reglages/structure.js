@@ -32,6 +32,7 @@ module.exports = {
         { nom: '💬・discussion', type: 'texte' },
         { nom: '🎀・présentations', type: 'texte' },
         { nom: '📸・médias', type: 'texte' },
+        { nom: '📈・niveaux', type: 'texte', cle: 'levelChannelId' },
         { nom: '🤖・commandes', type: 'texte' },
         { nom: '🔊・salon vocal', type: 'vocal' },
       ],

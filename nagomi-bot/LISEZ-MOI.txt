@@ -4,9 +4,9 @@
 CE QU'IL Y A DANS LES DOSSIERS
   index.js        → démarre le bot. Tu n'y touches JAMAIS.
   commandes/      → UNE commande = UN fichier qui porte son nom (ex : ban.js = /ban)
-      membres/      /aide /ping /avatar /userinfo /serverinfo
+      membres/      /aide /ping /avatar /userinfo /serverinfo /rank /top
       moderation/   /ban /unban /kick /mute /unmute /warn /warns /unwarn /clear /lock /unlock /slowmode
-      serveur/      /setup /config /embed /dire /emoji /reactionrole /autorole /ticket
+      serveur/      /setup /config /embed /dire /emoji /reactionrole /autorole /ticket /palier /xp
   systemes/       → ce qui tourne tout seul (rôles-réactions, rôles automatiques…)
   reglages/       → ce que TU peux changer : couleurs.js, textes.js, structure.js (le plan des salons)
   outils/         → petits morceaux partagés (tu n'as pas à y toucher)
@@ -43,7 +43,7 @@ MISE EN LIGNE (une seule fois)
      (sinon les avertissements et réglages sont perdus à chaque redémarrage)
 
 5) Dans les logs Railway tu dois voir :
-        🍵 Nagomi est prête : 25 commandes …
+        🍵 Nagomi est prête : 29 commandes …
 
 ──────────────────────────────────────────────
 PREMIER PARAMÉTRAGE DU SERVEUR
@@ -72,3 +72,19 @@ TICKETS
 4. Fermer = bouton 🔒 (ou /ticket action:fermer) → la conversation est envoyée dans les logs.
    /ticket action:ajouter membre:@x  ou  action:retirer  pour gérer qui voit le ticket.
 Les raisons du menu se changent dans reglages/tickets.js.
+
+──────────────────────────────────────────────
+NIVEAUX ET RÔLES DE PALIERS
+──────────────────────────────────────────────
+Chaque message rapporte 15 à 25 XP (1 fois par minute maximum par personne).
+1. Associer un rôle à un niveau (tes rôles existants) :
+     /palier action:ajouter niveau:5 role:@MonRôle
+   Répète pour chaque palier. /palier action:liste pour tout voir.
+2. Un seul rôle à la fois ou on les garde tous ?
+     /palier action:mode choix:remplacer     (ou : garder)
+3. Salon des annonces de niveau :
+     /palier action:annonces salon:#niveaux
+4. Donner les rôles à ceux qui ont déjà le niveau : /palier action:appliquer
+Les membres : /rank (leur niveau) et /top (classement).
+Le staff : /xp pour ajouter, retirer, fixer un niveau ou remettre à zéro.
+IMPORTANT : le rôle du bot doit être AU-DESSUS des rôles de paliers dans la liste des rôles.
