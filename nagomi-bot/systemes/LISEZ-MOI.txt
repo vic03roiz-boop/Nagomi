@@ -2,5 +2,6 @@ Les systèmes tournent tout seuls, sans commande. Un dossier = un système, avec
   roles-reactions/  donne ou retire un rôle quand on met une réaction (réglé avec /reactionrole)
   autorole/         donne des rôles aux nouveaux membres (réglé avec /autorole)
   niveaux/          compte l'XP des messages, annonce les niveaux, donne les rôles de paliers (/palier)
+  bienvenue/        message à l'arrivée et au départ des membres (réglé avec /bienvenue, textes dans reglages/messages.js)
   tickets/          nettoie si un salon de ticket est supprimé à la main (le reste est dans commandes/serveur/ticket.js)
 Les prochains (bienvenue, niveaux, automod, logs, confiance…) viendront ici, un dossier chacun.

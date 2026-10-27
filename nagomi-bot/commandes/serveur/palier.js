@@ -11,7 +11,8 @@ module.exports = {
     .addStringOption((o) => o.setName('action').setDescription('Que faire ?').setRequired(true).addChoices(
       { name: 'ajouter (un niveau + un rôle)', value: 'ajouter' }, { name: 'retirer (un palier)', value: 'retirer' },
       { name: 'liste (voir les paliers)', value: 'liste' }, { name: 'mode (garder ou remplacer les anciens rôles)', value: 'mode' },
-      { name: 'annonces (salon des messages de niveau)', value: 'annonces' }, { name: 'appliquer (remettre les rôles à tout le monde)', value: 'appliquer' }))
+      { name: 'annonces (salon des messages de niveau)', value: 'annonces' }, { name: 'appliquer (remettre les rôles à tout le monde)', value: 'appliquer' },
+      { name: 'test (voir un exemple d’annonce)', value: 'test' }))
     .addIntegerOption((o) => o.setName('niveau').setDescription('Le niveau à atteindre').setMinValue(1).setMaxValue(500))
     .addRoleOption((o) => o.setName('role').setDescription('Le rôle donné à ce niveau'))
     .addStringOption((o) => o.setName('choix').setDescription('Pour « mode » : remplacer = un seul rôle à la fois, garder = on les cumule')
@@ -56,6 +57,17 @@ module.exports = {
       const salon = i.options.getChannel('salon');
       parametres.ecrire('levelChannelId', salon?.id || null);
       return rep.repondre(i, rep.ok(salon ? `Les passages de niveau seront annoncés dans ${salon}.` : 'Les annonces se feront dans le salon où la personne écrit.'));
+    }
+    if (action === 'test') {
+      const id = parametres.lire('levelChannelId');
+      const salon = (id && await i.guild.channels.fetch(id).catch(() => null)) || i.channel;
+      const [d1, d2] = textes.deco;
+      const palier = nv.paliers().find((p) => p.niveau === (niveau || 0)) || nv.paliers()[0];
+      const e = new EmbedBuilder().setColor(couleurs.rose).setThumbnail(i.user.displayAvatarURL({ size: 128 }))
+        .setDescription(`${d1}\n${i.user}, tu viens de passer au niveau **${palier?.niveau || niveau || 5}** ! 🌸\n${d2}` +
+          (palier ? `\n\n✨ Nouveau rôle : <@&${palier.roleId}>` : '')).setFooter({ text: textes.pied });
+      await salon.send({ content: `${i.user} *(test)*`, embeds: [e], allowedMentions: { users: [i.user.id] } });
+      return rep.repondre(i, rep.ok(`Exemple envoyé dans ${salon}.`));
     }
     // appliquer : met les rôles à jour pour tout le monde
     await i.deferReply({ flags: 64 });

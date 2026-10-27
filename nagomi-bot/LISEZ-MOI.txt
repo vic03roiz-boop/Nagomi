@@ -6,7 +6,7 @@ CE QU'IL Y A DANS LES DOSSIERS
   commandes/      → UNE commande = UN fichier qui porte son nom (ex : ban.js = /ban)
       membres/      /aide /ping /avatar /userinfo /serverinfo /rank /top
       moderation/   /ban /unban /kick /mute /unmute /warn /warns /unwarn /clear /lock /unlock /slowmode
-      serveur/      /setup /config /embed /dire /emoji /reactionrole /autorole /ticket /palier /xp
+      serveur/      /setup /config /embed /dire /emoji /reactionrole /autorole /ticket /palier /xp /bienvenue
   systemes/       → ce qui tourne tout seul (rôles-réactions, rôles automatiques…)
   reglages/       → ce que TU peux changer : couleurs.js, textes.js, structure.js (le plan des salons)
   outils/         → petits morceaux partagés (tu n'as pas à y toucher)
@@ -43,7 +43,7 @@ MISE EN LIGNE (une seule fois)
      (sinon les avertissements et réglages sont perdus à chaque redémarrage)
 
 5) Dans les logs Railway tu dois voir :
-        🍵 Nagomi est prête : 29 commandes …
+        🍵 Nagomi est prête : 30 commandes …
 
 ──────────────────────────────────────────────
 PREMIER PARAMÉTRAGE DU SERVEUR
@@ -85,6 +85,18 @@ Chaque message rapporte 15 à 25 XP (1 fois par minute maximum par personne).
 3. Salon des annonces de niveau :
      /palier action:annonces salon:#niveaux
 4. Donner les rôles à ceux qui ont déjà le niveau : /palier action:appliquer
+5. Voir un exemple d'annonce : /palier action:test
 Les membres : /rank (leur niveau) et /top (classement).
 Le staff : /xp pour ajouter, retirer, fixer un niveau ou remettre à zéro.
 IMPORTANT : le rôle du bot doit être AU-DESSUS des rôles de paliers dans la liste des rôles.
+
+──────────────────────────────────────────────
+BIENVENUE ET AU REVOIR
+──────────────────────────────────────────────
+1. Salons :   /bienvenue action:salon salon:#bienvenue
+              /bienvenue action:aurevoir salon:#au-revoir
+   (/setup les règle tout seul)
+2. GIF :      /bienvenue action:image pour:bienvenue fichier:(ton GIF)
+              /bienvenue action:image pour:au revoir fichier:(ton GIF)   ← 8 Mo maximum
+3. Voir le résultat (visible que par toi) : /bienvenue action:apercu
+4. Les textes se changent dans reglages/messages.js.

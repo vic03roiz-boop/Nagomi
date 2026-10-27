@@ -22,7 +22,8 @@ module.exports = {
       nom: '🍵 ・ L’entrée', acces: 'tous',
       salons: [
         { nom: '🌸・bienvenue', type: 'texte', lecture: true, cle: 'welcomeChannelId' },
-        { nom: '📜・règlement', type: 'texte', lecture: true },
+        { nom: '🍃・au-revoir', type: 'texte', lecture: true, cle: 'goodbyeChannelId' },
+        { nom: '📜・règlement', type: 'texte', lecture: true, cle: 'rulesChannelId' },
         { nom: '📣・annonces', type: 'annonce', lecture: true },
       ],
     },
@@ -30,7 +31,7 @@ module.exports = {
       nom: '☁️ ・ Le salon', acces: 'membres',
       salons: [
         { nom: '💬・discussion', type: 'texte' },
-        { nom: '🎀・présentations', type: 'texte' },
+        { nom: '🎀・présentations', type: 'texte', cle: 'introChannelId' },
         { nom: '📸・médias', type: 'texte' },
         { nom: '📈・niveaux', type: 'texte', cle: 'levelChannelId' },
         { nom: '🤖・commandes', type: 'texte' },
