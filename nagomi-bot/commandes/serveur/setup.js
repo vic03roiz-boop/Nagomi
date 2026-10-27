@@ -52,6 +52,7 @@ async function construire(guild) {
       if (parent) fait.push(`catégorie ${cat.nom}`);
     }
     if (!parent) continue;
+    if (cat.cle) parametres.ecrire(cat.cle, parent.id);
 
     for (const s of cat.salons) {
       let salon = guild.channels.cache.find((c) => c.parentId === parent.id && c.name === s.nom.toLowerCase().replace(/\s+/g, '-'))

@@ -9,13 +9,14 @@ const REGLAGES = [
   ['welcomeChannelId', '🌸 Salon de bienvenue', 'salon'],
   ['staffRoleId', '🔑 Rôle Équipe', 'role'],
   ['memberRoleId', '✦ Rôle Membre', 'role'],
+  ['ticketCategoryId', '🎫 Catégorie des tickets', 'categorie'],
 ];
-const TYPE_CLE = { logs: 'logsChannelId', bienvenue: 'welcomeChannelId', staff: 'staffRoleId', membre: 'memberRoleId' };
+const TYPE_CLE = { logs: 'logsChannelId', bienvenue: 'welcomeChannelId', staff: 'staffRoleId', membre: 'memberRoleId', tickets: 'ticketCategoryId' };
 
 function valeur(cle, type) {
   const v = parametres.lire(cle);
   if (!v) return '*non défini*';
-  return type === 'salon' ? `<#${v}>` : `<@&${v}>`;
+  return type === 'role' ? `<@&${v}>` : `<#${v}>`;
 }
 
 function panneau() {
@@ -24,8 +25,10 @@ function panneau() {
       REGLAGES.map(([c, t, ty]) => `**${t}**\n${valeur(c, ty)}`).join('\n\n'));
   const salon = (id, ph) => new ActionRowBuilder().addComponents(new ChannelSelectMenuBuilder().setCustomId(`config:${id}`).setPlaceholder(ph)
     .setChannelTypes(ChannelType.GuildText, ChannelType.GuildAnnouncement).setMinValues(0).setMaxValues(1));
+  const categorie = (id, ph) => new ActionRowBuilder().addComponents(new ChannelSelectMenuBuilder().setCustomId(`config:${id}`).setPlaceholder(ph)
+    .setChannelTypes(ChannelType.GuildCategory).setMinValues(0).setMaxValues(1));
   const role = (id, ph) => new ActionRowBuilder().addComponents(new RoleSelectMenuBuilder().setCustomId(`config:${id}`).setPlaceholder(ph).setMinValues(0).setMaxValues(1));
-  return { embeds: [e], components: [salon('logs', '📋 Salon des logs'), salon('bienvenue', '🌸 Salon de bienvenue'), role('staff', '🔑 Rôle Équipe'), role('membre', '✦ Rôle Membre')] };
+  return { embeds: [e], components: [salon('logs', '📋 Salon des logs'), salon('bienvenue', '🌸 Salon de bienvenue'), role('staff', '🔑 Rôle Équipe'), role('membre', '✦ Rôle Membre'), categorie('tickets', '🎫 Catégorie des tickets')] };
 }
 
 module.exports = {

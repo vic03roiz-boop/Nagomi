@@ -6,7 +6,7 @@ CE QU'IL Y A DANS LES DOSSIERS
   commandes/      → UNE commande = UN fichier qui porte son nom (ex : ban.js = /ban)
       membres/      /aide /ping /avatar /userinfo /serverinfo
       moderation/   /ban /unban /kick /mute /unmute /warn /warns /unwarn /clear /lock /unlock /slowmode
-      serveur/      /setup /config /embed /dire /emoji /reactionrole /autorole
+      serveur/      /setup /config /embed /dire /emoji /reactionrole /autorole /ticket
   systemes/       → ce qui tourne tout seul (rôles-réactions, rôles automatiques…)
   reglages/       → ce que TU peux changer : couleurs.js, textes.js, structure.js (le plan des salons)
   outils/         → petits morceaux partagés (tu n'as pas à y toucher)
@@ -43,7 +43,7 @@ MISE EN LIGNE (une seule fois)
      (sinon les avertissements et réglages sont perdus à chaque redémarrage)
 
 5) Dans les logs Railway tu dois voir :
-        🍵 Nagomi est prête : 24 commandes …
+        🍵 Nagomi est prête : 25 commandes …
 
 ──────────────────────────────────────────────
 PREMIER PARAMÉTRAGE DU SERVEUR
@@ -62,3 +62,13 @@ SI ÇA NE MARCHE PAS
 • "Missing Permissions" → le rôle du bot n'est pas assez haut (voir étape 1).
 • Les commandes n'apparaissent pas → vérifie GUILD_ID et le lien d'invitation (applications.commands).
 • Le bot ne démarre pas → regarde les logs Railway et envoie-moi la ligne d'erreur.
+
+──────────────────────────────────────────────
+TICKETS
+──────────────────────────────────────────────
+1. /setup crée la catégorie "🎫 ・ Les tickets" et le salon "🎟️・tickets" (sinon : /config → Catégorie des tickets).
+2. Dans le salon des tickets, tape /ticket action:panneau → le message avec le menu apparaît.
+3. Un membre choisit une raison → un salon privé s'ouvre pour lui + l'équipe.
+4. Fermer = bouton 🔒 (ou /ticket action:fermer) → la conversation est envoyée dans les logs.
+   /ticket action:ajouter membre:@x  ou  action:retirer  pour gérer qui voit le ticket.
+Les raisons du menu se changent dans reglages/tickets.js.

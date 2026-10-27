@@ -54,8 +54,12 @@ module.exports = {
       nom: '🎁 ・ Les sachets surprise', acces: 'membres',
       salons: [
         { nom: '🎉・giveaways', type: 'texte', lecture: true },
-        { nom: '🎟️・tickets', type: 'texte', lecture: true },
+        { nom: '🎟️・tickets', type: 'texte', lecture: true, cle: 'ticketPanelChannelId' },
       ],
+    },
+    {
+      nom: '🎫 ・ Les tickets', acces: 'equipe', cle: 'ticketCategoryId',   // les tickets ouverts apparaissent ici
+      salons: [],
     },
     {
       nom: '🔑 ・ L’arrière-boutique', acces: 'equipe',
