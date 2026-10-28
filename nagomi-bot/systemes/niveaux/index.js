@@ -1,6 +1,7 @@
 // 📈 Chaque message rapporte un peu d'XP (1 fois par minute max par personne).
 // Quand on change de niveau : message d'annonce + rôle de palier (réglé avec /palier).
-const { Events, EmbedBuilder } = require('discord.js');
+const { Events, EmbedBuilder, AttachmentBuilder } = require('discord.js');
+const { carteNiveau } = require('../../outils/carte');
 const nv = require('../../outils/niveaux');
 const parametres = require('../../outils/parametres');
 const couleurs = require('../../reglages/couleurs');
@@ -17,7 +18,16 @@ async function annoncer(message, niveau, rolesGagnes) {
     .setDescription(`${d1}\n${message.author}, tu viens de passer au niveau **${niveau}** ! 🌸\n${d2}` +
       (rolesGagnes.length ? `\n\n✨ Nouveau rôle : ${rolesGagnes.map((r) => `<@&${r}>`).join(' ')}` : ''))
     .setFooter({ text: textes.pied });
-  await salon.send({ content: `${message.author}`, embeds: [e], allowedMentions: { users: [message.author.id] } }).catch(() => {});
+  const payload = { content: `${message.author}`, embeds: [e], allowedMentions: { users: [message.author.id] } };
+  try {   // la carte de niveau Nagomi sous le message
+    const d = nv.infos(message.author.id);
+    const rang = nv.classement().findIndex((x) => x.id === message.author.id) + 1;
+    const suivant = nv.paliers().find((p) => p.niveau > d.niveau);
+    const png = await carteNiveau({ nom: message.member?.displayName || message.author.displayName, avatarUrl: message.author.displayAvatarURL({ extension: 'png', size: 256 }),
+      niveau: d.niveau, rang, xp: d.dansNiveau, xpMax: d.pourSuivant, messages: d.messages, prochain: suivant?.niveau });
+    payload.files = [new AttachmentBuilder(png, { name: 'niveau.png' })]; e.setImage('attachment://niveau.png');
+  } catch (err) { console.error('[niveaux] carte :', err.message); }
+  await salon.send(payload).catch(() => {});
 }
 
 module.exports = {

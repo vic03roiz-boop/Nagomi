@@ -66,7 +66,13 @@ module.exports = {
       const e = new EmbedBuilder().setColor(couleurs.rose).setThumbnail(i.user.displayAvatarURL({ size: 128 }))
         .setDescription(`${d1}\n${i.user}, tu viens de passer au niveau **${palier?.niveau || niveau || 5}** ! 🌸\n${d2}` +
           (palier ? `\n\n✨ Nouveau rôle : <@&${palier.roleId}>` : '')).setFooter({ text: textes.pied });
-      await salon.send({ content: `${i.user} *(test)*`, embeds: [e], allowedMentions: { users: [i.user.id] } });
+      const payload = { content: `${i.user} *(test)*`, embeds: [e], allowedMentions: { users: [i.user.id] } };
+      try {
+        const { carteNiveau } = require('../../outils/carte'); const { AttachmentBuilder } = require('discord.js'); const d = nv.infos(i.user.id);
+        payload.files = [new AttachmentBuilder(await carteNiveau({ nom: i.member.displayName, avatarUrl: i.user.displayAvatarURL({ extension: 'png', size: 256 }), niveau: d.niveau, rang: nv.classement().findIndex((x) => x.id === i.user.id) + 1, xp: d.dansNiveau, xpMax: d.pourSuivant, messages: d.messages }), { name: 'niveau.png' })];
+        e.setImage('attachment://niveau.png');
+      } catch { /* sans carte */ }
+      await salon.send(payload);
       return rep.repondre(i, rep.ok(`Exemple envoyé dans ${salon}.`));
     }
     // appliquer : met les rôles à jour pour tout le monde
