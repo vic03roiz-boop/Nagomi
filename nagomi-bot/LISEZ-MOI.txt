@@ -44,7 +44,7 @@ MISE EN LIGNE (une seule fois)
      (sinon les avertissements et réglages sont perdus à chaque redémarrage)
 
 5) Dans les logs Railway tu dois voir :
-        🍵 Nagomi est prête : 37 commandes …
+        🍵 Nagomi est prête : 38 commandes …
 
 ──────────────────────────────────────────────
 PREMIER PARAMÉTRAGE DU SERVEUR
@@ -164,3 +164,14 @@ BIENVENUE ET AU REVOIR
    /sauvegarde action:restaurer   → recrée ce qui a été supprimé (ne supprime rien, ne touche pas à l'existant)
    /sauvegarde action:exporter    → t'envoie le fichier : garde-en un de côté !
    Les sauvegardes sont dans le volume Railway (/app/data/sauvegardes).
+
+
+💌 INVITER UN(E) PROCHE (v1.10)
+   /inviter membre:@copine message:Coucou, viens voir mon serveur !
+   → elle reçoit un joli message privé Nagomi avec un bouton « Rejoindre Nagomi »
+     (lien personnel : 1 seule utilisation, valable 7 jours).
+   Tu peux coller son identifiant Discord dans « membre » même si elle n'est pas encore sur le serveur
+   (Discord : Paramètres > Avancés > Mode développeur, puis clic droit sur son profil > Copier l'identifiant).
+   Garde-fous : 5 invitations par jour et par personne de l'équipe, une seule invitation par personne.
+   Si ses messages privés sont fermés, le bot te le dit : envoie-lui alors le lien toi-même.
+   Quand elle arrive, le message de bienvenue indique qu'elle a été invitée par toi.

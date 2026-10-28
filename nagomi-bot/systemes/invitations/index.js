@@ -2,7 +2,7 @@
 const { Events } = require('discord.js');
 const { ouvrir } = require('../../outils/stockage');
 
-const bd = ouvrir('invitations', { inviteurs: {}, membres: {} });   // inviteurs: {id:{total,partis}} · membres: {idMembre: idInviteur}
+const bd = ouvrir('invitations', { inviteurs: {}, membres: {}, codes: {} });   // inviteurs: {id:{total,partis}} · membres: {idMembre: idInviteur}
 const cache = new Map();                                              // guildId → Map(code → {uses, max, inviterId})
 
 async function charger(guild) {
@@ -35,6 +35,7 @@ async function trouver(membre) {
   if (!trouve) for (const [code, a] of avant)            // invitation à usage limité : supprimée juste après son dernier usage
     if (!nouveau.has(code) && a.max && a.uses + 1 >= a.max) { trouve = { code, ...a }; break; }
   if (!trouve?.inviterId) return null;
+  if (trouve.inviterId === membre.client?.user?.id && bd.data.codes?.[trouve.code]) trouve.inviterId = bd.data.codes[trouve.code];   // invitation créée par /inviter : on crédite l'équipe qui a invité
   const s = (bd.data.inviteurs[trouve.inviterId] ||= { total: 0, partis: 0 });
   s.total++; bd.data.membres[membre.id] = trouve.inviterId; bd.sauver();
   return { inviterId: trouve.inviterId, code: trouve.code, ...stats(trouve.inviterId) };
@@ -42,6 +43,7 @@ async function trouver(membre) {
 
 module.exports = {
   stats, identifier,
+  lierCode: (code, userId) => { (bd.data.codes ||= {})[code] = userId; bd.sauver(); },
   demarrer(client) {
     client.once(Events.ClientReady, () => client.guilds.cache.forEach(charger));
     client.on(Events.GuildCreate, charger);
