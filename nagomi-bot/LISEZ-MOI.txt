@@ -43,7 +43,7 @@ MISE EN LIGNE (une seule fois)
      (sinon les avertissements et réglages sont perdus à chaque redémarrage)
 
 5) Dans les logs Railway tu dois voir :
-        🍵 Nagomi est prête : 30 commandes …
+        🍵 Nagomi est prête : 32 commandes …
 
 ──────────────────────────────────────────────
 PREMIER PARAMÉTRAGE DU SERVEUR
@@ -100,3 +100,21 @@ BIENVENUE ET AU REVOIR
               /bienvenue action:image pour:au revoir fichier:(ton GIF)   ← 8 Mo maximum
 3. Voir le résultat (visible que par toi) : /bienvenue action:apercu
 4. Les textes se changent dans reglages/messages.js.
+
+
+🎁 GIVEAWAYS (v1.7)
+   /giveaway lot:Sachet surprise duree:3j gagnants:2     → lance un giveaway (dans le salon où tu écris, ou salon:#giveaways)
+   Options en plus : conditions:, bonus:True (boosters = 2 chances), role:, niveau:
+   /giveaway action:terminer message:<lien>   → tirage tout de suite
+   /giveaway action:reroll message:<lien>     → retire un(e) nouveau/nouvelle gagnant(e)
+   /giveaway action:annuler message:<lien>    → supprime sans gagnant
+   /giveaway action:liste                     → giveaways en cours
+   /giveaway action:banniere fichier:(GIF)    → change l'image des prochains giveaways
+   (la bannière salon de thé est déjà fournie : images/giveaway.gif)
+
+   Les membres cliquent sur 🌸 Participer ; ils peuvent annuler (avec confirmation).
+   La fin est automatique (même après un redémarrage, grâce au volume Railway).
+
+   /blacklist action:ajouter membre:@x duree:7j raison:...   → interdit les giveaways, retrait automatique à la fin
+   /blacklist action:role role:@Blacklisté                  → rôle donné pendant la blacklist (facultatif)
+   /blacklist action:liste | retirer
