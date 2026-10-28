@@ -1,27 +1,22 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const { SlashCommandBuilder, AttachmentBuilder } = require('discord.js');
 const nv = require('../../outils/niveaux');
-const couleurs = require('../../reglages/couleurs');
-const textes = require('../../reglages/textes');
-
-const barre = (part, total) => { const n = Math.round((part / total) * 10); return '🌸'.repeat(n) + '▫️'.repeat(10 - n); };
+const { carteNiveau } = require('../../outils/carte');
 
 module.exports = {
-  data: new SlashCommandBuilder().setName('rank').setDescription('Ton niveau et ton XP')
+  data: new SlashCommandBuilder().setName('rank').setDescription('Ta carte de niveau')
     .addUserOption((o) => o.setName('membre').setDescription('La personne (toi par défaut)')),
   async execute(i) {
     const u = i.options.getUser('membre') || i.user;
     if (u.bot) return i.reply({ content: 'Les bots ne gagnent pas d’XP 🤖', flags: 64 });
+    await i.deferReply();
     const d = nv.infos(u.id);
     const rang = nv.classement().findIndex((x) => x.id === u.id) + 1;
     const suivant = nv.paliers().find((p) => p.niveau > d.niveau);
-    const e = new EmbedBuilder().setColor(couleurs.rose).setTitle(`🌸 ${u.displayName}`).setThumbnail(u.displayAvatarURL({ size: 256 }))
-      .addFields(
-        { name: 'Niveau', value: `**${d.niveau}**`, inline: true },
-        { name: 'Classement', value: rang ? `#${rang}` : '—', inline: true },
-        { name: 'Messages', value: String(d.messages), inline: true },
-        { name: `XP · ${d.dansNiveau} / ${d.pourSuivant}`, value: barre(d.dansNiveau, d.pourSuivant) },
-      ).setFooter({ text: textes.pied });
-    if (suivant) e.addFields({ name: 'Prochain palier', value: `Niveau **${suivant.niveau}** → <@&${suivant.roleId}>` });
-    await i.reply({ embeds: [e] });
+    const membre = i.guild.members.cache.get(u.id) || await i.guild.members.fetch(u.id).catch(() => null);
+    try {
+      const png = await carteNiveau({ nom: membre?.displayName || u.displayName, avatarUrl: (membre || u).displayAvatarURL({ extension: 'png', size: 256 }),
+        niveau: d.niveau, rang, xp: d.dansNiveau, xpMax: d.pourSuivant, messages: d.messages, prochain: suivant?.niveau });
+      await i.editReply({ files: [new AttachmentBuilder(png, { name: 'niveau.png' })] });
+    } catch (e) { console.error('[rank]', e.message); await i.editReply({ content: `🌸 **${u.displayName}** · niveau **${d.niveau}** · ${d.dansNiveau}/${d.pourSuivant} XP${rang ? ` · #${rang}` : ''}` }); }
   },
 };

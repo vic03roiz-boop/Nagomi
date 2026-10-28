@@ -45,7 +45,7 @@ module.exports = {
     }
     // aperçu (visible seulement par toi)
     const membre = i.member;
-    const b = sys.construire('bienvenue', membre), a = sys.construire('aurevoir', membre);
+    const b = sys.construire('bienvenue', membre, { inviterId: i.user.id, restants: 3 }), a = sys.construire('aurevoir', membre);
     const [salonB, salonA] = [parametres.lire('welcomeChannelId'), parametres.lire('goodbyeChannelId')];
     await i.reply({ content: `**Bienvenue** → ${salonB ? `<#${salonB}>` : '⚠️ salon non défini (`action:salon`)'}${sys.trouverImage('bienvenue') ? '' : '\n⚠️ **Aucune image enregistrée.** Envoie ton GIF avec `/bienvenue action:image pour:bienvenue fichier:`'}`, ...b, flags: 64 });
     await i.followUp({ content: `**Au revoir** → ${salonA ? `<#${salonA}>` : '⚠️ salon non défini (`action:aurevoir`)'}${sys.trouverImage('aurevoir') ? '' : '\n⚠️ **Aucune image enregistrée.** Envoie ton GIF avec `/bienvenue action:image pour:au revoir fichier:`'}`, ...a, flags: 64 });

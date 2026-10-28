@@ -18,6 +18,7 @@ const client = new Client({
     GatewayIntentBits.GuildVoiceStates,      // logs vocal
     GatewayIntentBits.GuildMessageReactions,
     GatewayIntentBits.GuildModeration,
+    GatewayIntentBits.GuildInvites,          // qui a invité qui
     GatewayIntentBits.GuildEmojisAndStickers,
   ],
   partials: [Partials.Message, Partials.Channel, Partials.Reaction, Partials.User],

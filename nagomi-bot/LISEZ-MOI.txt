@@ -44,7 +44,7 @@ MISE EN LIGNE (une seule fois)
      (sinon les avertissements et réglages sont perdus à chaque redémarrage)
 
 5) Dans les logs Railway tu dois voir :
-        🍵 Nagomi est prête : 34 commandes …
+        🍵 Nagomi est prête : 37 commandes …
 
 ──────────────────────────────────────────────
 PREMIER PARAMÉTRAGE DU SERVEUR
@@ -135,3 +135,32 @@ BIENVENUE ET AU REVOIR
    rôles, salons, vocal, modération (ban, débannissement, sourdine).
    ⚠️ Active « MESSAGE CONTENT INTENT » dans le portail développeur, sinon le texte des messages reste vide.
    Les messages envoyés AVANT le démarrage du bot s'affichent « contenu inconnu » à la suppression (limite de Discord).
+
+
+🛡️ AUTOMOD + ANTI-RAID (v1.9)  — pas de règle sur les majuscules
+   /automod action:voir                                   → l'état de chaque règle
+   /automod action:activer regle:liens                    → (liens désactivés par défaut) ; desactiver pour couper
+   /automod action:mot texte:motinterdit                  → ajoute un mot interdit (refaire = retirer) puis activer regle:mots
+   /automod action:lien texte:tenor.com                   → site autorisé quand la règle « liens » est active
+   /automod action:exempter role:@Rôle  (ou salon:#x)    → ignoré par l'automod
+   /automod action:regler reglage:spamMessages valeur:8   → changer un nombre
+   /automod action:raid                                   → arrêter le mode raid
+   Déjà actif par défaut : invitations Discord, mentions en masse (5 max), spam (6 msgs en 5 s).
+   Après 3 infractions en 10 min : sourdine de 10 min. L'équipe n'est jamais sanctionnée. Tout est écrit dans les logs.
+   Anti-raid : 6 arrivées en 15 s → les nouveaux sont mis en sourdine 10 min + alerte dans les logs.
+
+🎀 INVITATIONS (v1.9)
+   Le message de bienvenue indique maintenant « Invité(e) par … · N invitations » (même message, pas de doublon).
+   /invites [membre]   → son nombre d'invitations (total, parties, restantes)
+   Le bot compte à partir du moment où il est là : les anciennes invitations ne sont pas connues.
+   (Permission « Gérer le serveur » nécessaire : déjà incluse avec Administrateur.)
+
+🌸 CARTE DE NIVEAU (v1.9)
+   /rank [membre]  → une image rose et crème avec ton avatar, ta barre d'XP, ton rang et une petite tasse de thé.
+
+💾 SAUVEGARDE (v1.9)
+   /sauvegarde action:creer       → sauvegarde maintenant (rôles, salons, permissions, rôles des membres, réglages du bot)
+   /sauvegarde action:liste       → toutes les sauvegardes (une automatique par jour, les 7 dernières gardées)
+   /sauvegarde action:restaurer   → recrée ce qui a été supprimé (ne supprime rien, ne touche pas à l'existant)
+   /sauvegarde action:exporter    → t'envoie le fichier : garde-en un de côté !
+   Les sauvegardes sont dans le volume Railway (/app/data/sauvegardes).

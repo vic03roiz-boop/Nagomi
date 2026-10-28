@@ -8,6 +8,7 @@ const { DOSSIER } = require('../../outils/stockage');
 const couleurs = require('../../reglages/couleurs');
 const textes = require('../../reglages/textes');
 const messages = require('../../reglages/messages');
+const invitations = require('../invitations');
 
 const EXT = ['gif', 'png', 'jpg', 'webp'];
 const DOSSIER_IMAGES = path.join(DOSSIER, 'images');
@@ -32,11 +33,17 @@ function remplir(texte, membre) {
 }
 
 // Fabrique le message (embed + image) pour 'bienvenue' ou 'aurevoir'
-function construire(type, membre) {
+// info (facultatif) = résultat de invitations.identifier() : ajoute « Invité(e) par … » au message
+function construire(type, membre, info) {
   const m = messages[type];
   const e = new EmbedBuilder().setColor(type === 'bienvenue' ? couleurs.rose : couleurs.matcha)
     .setTitle(remplir(m.titre, membre)).setDescription(remplir(m.description, membre))
     .setThumbnail((membre.user || membre).displayAvatarURL({ size: 256 })).setFooter({ text: textes.pied });
+  if (type === 'bienvenue' && info !== undefined) {
+    e.addFields({ name: '🎀 Invitation', value: info
+      ? `Invité(e) par <@${info.inviterId}> · **${info.restants}** invitation${info.restants > 1 ? 's' : ''}`
+      : "Arrivé(e) par un lien que je n'ai pas pu retrouver 🌸" });
+  }
   const payload = { embeds: [e] };
   const img = trouverImage(type);
   if (img) { payload.files = [new AttachmentBuilder(img.fichier, { name: img.nom })]; e.setImage(`attachment://${img.nom}`); }
@@ -55,7 +62,8 @@ module.exports = {
       if (membre.user.bot) return;
       const ch = await salon(membre.guild, 'welcomeChannelId');
       if (!ch) return;
-      const p = construire('bienvenue', membre);
+      const info = await invitations.identifier(membre).catch(() => null);
+      const p = construire('bienvenue', membre, info);
       await ch.send({ content: `<@${membre.id}>`, ...p, allowedMentions: { users: [membre.id] } }).catch((e) => console.error('[bienvenue]', e.message));
     });
     client.on(Events.GuildMemberRemove, async (membre) => {
