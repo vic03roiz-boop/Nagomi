@@ -14,6 +14,8 @@ const client = new Client({
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMembers,          // à activer dans le portail développeur (Server Members Intent)
     GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent,        // pour les logs (texte des messages modifiés/supprimés) — à activer aussi dans le portail
+    GatewayIntentBits.GuildVoiceStates,      // logs vocal
     GatewayIntentBits.GuildMessageReactions,
     GatewayIntentBits.GuildModeration,
     GatewayIntentBits.GuildEmojisAndStickers,

@@ -23,6 +23,7 @@ MISE EN LIGNE (une seule fois)
    → onglet "Bot" : "Reset Token" puis COPIE le token (garde-le secret !)
    → toujours dans "Bot", descends à "Privileged Gateway Intents" et active :
         ✔ SERVER MEMBERS INTENT
+        ✔ MESSAGE CONTENT INTENT   (nouveau : sert aux logs des messages modifiés/supprimés)
    → "Save Changes"
 
 2) Inviter le bot sur ton serveur
@@ -43,7 +44,7 @@ MISE EN LIGNE (une seule fois)
      (sinon les avertissements et réglages sont perdus à chaque redémarrage)
 
 5) Dans les logs Railway tu dois voir :
-        🍵 Nagomi est prête : 32 commandes …
+        🍵 Nagomi est prête : 34 commandes …
 
 ──────────────────────────────────────────────
 PREMIER PARAMÉTRAGE DU SERVEUR
@@ -118,3 +119,19 @@ BIENVENUE ET AU REVOIR
    /blacklist action:ajouter membre:@x duree:7j raison:...   → interdit les giveaways, retrait automatique à la fin
    /blacklist action:role role:@Blacklisté                  → rôle donné pendant la blacklist (facultatif)
    /blacklist action:liste | retirer
+
+
+🎁 DROPS (v1.8)
+   /drop lot:Un sachet surprise [salon:#giveaways]
+   → un message avec un bouton « 🌸 Attraper ! » : le/la PREMIER(E) qui clique gagne.
+   Le bot annonce la gagnante et l'envoie ouvrir un ticket. Sans clic pendant 24 h, le drop expire.
+
+📋 LOGS (v1.8) — comme Carl-bot
+   /logs action:salon salon:#logs                       → salon de tous les logs
+   /logs action:salon categorie:messages salon:#autre   → un salon à part pour une catégorie
+   /logs action:desactiver categorie:vocal              → couper une catégorie (activer pour la remettre)
+   /logs action:voir                                    → état de chaque catégorie
+   Catégories : messages (modifiés/supprimés), membres (arrivées, départs, pseudo),
+   rôles, salons, vocal, modération (ban, débannissement, sourdine).
+   ⚠️ Active « MESSAGE CONTENT INTENT » dans le portail développeur, sinon le texte des messages reste vide.
+   Les messages envoyés AVANT le démarrage du bot s'affichent « contenu inconnu » à la suppression (limite de Discord).
