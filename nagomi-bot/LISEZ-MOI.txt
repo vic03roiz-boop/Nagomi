@@ -44,7 +44,7 @@ MISE EN LIGNE (une seule fois)
      (sinon les avertissements et réglages sont perdus à chaque redémarrage)
 
 5) Dans les logs Railway tu dois voir :
-        🍵 Nagomi est prête : 38 commandes …
+        🍵 Nagomi est prête : 40 commandes …
 
 ──────────────────────────────────────────────
 PREMIER PARAMÉTRAGE DU SERVEUR
@@ -175,3 +175,32 @@ BIENVENUE ET AU REVOIR
    Garde-fous : 5 invitations par jour et par personne de l'équipe, une seule invitation par personne.
    Si ses messages privés sont fermés, le bot te le dit : envoie-lui alors le lien toi-même.
    Quand elle arrive, le message de bienvenue indique qu'elle a été invitée par toi.
+
+
+🪪 QUESTIONNAIRE D'ARRIVÉE (v1.11)
+   Le membre donne son pseudo MSP, choisit ses rôles (genre, âge, version MSP, couleur, centres d'intérêt)
+   et seulement ensuite le bot lui donne le rôle ✦ Membre : c'est ce rôle qui ouvre le serveur.
+   Le bot NE CRÉE PAS les rôles : il utilise ceux qui existent déjà.
+
+   Mise en place (une seule fois) :
+   1. /config → choisis le « Rôle Membre » (celui qui donne accès au serveur).
+   2. Sur Discord, rôle @everyone : retire « Voir les salons » partout, SAUF dans le salon du règlement
+      (où @everyone peut voir mais pas écrire). Les salons du serveur ne sont visibles que par le rôle Membre.
+   3. Mets le rôle du bot AU-DESSUS de tous les rôles du questionnaire (Paramètres > Rôles).
+   4. Pour chaque question, indique tes rôles existants :
+        /questionnaire roles question:1 role1:@Femme role2:@Homme role3:@Autre
+        /questionnaire roles question:2 role1:@+18 role2:@-18
+        /questionnaire roles question:3 role1:@MSP1 role2:@MSP2 role3:@MSP City   (plusieurs choix possibles)
+        /questionnaire roles question:4 role1:… jusqu'à role12:…                   (les couleurs)
+        /questionnaire roles question:5 …                                          (facultatif : acheteuse, vendeuse…)
+   5. /questionnaire panneau salon:#règlement → poste le message avec les boutons « Commencer » et « Modifier mon profil ».
+   6. /questionnaire etat → vérifie que tout est réglé.
+
+   Règles : un pseudo = un compte Discord (si quelqu'un utilise le pseudo d'un autre, il est refusé et l'équipe est prévenue
+   dans le salon de logs). /questionnaire interdire pseudo:xxx bloque un pseudo d'arnaqueur.
+   Quelqu'un qui quitte puis revient retrouve ses rôles sans refaire le questionnaire.
+
+   /profil membre:@x (ou pseudo:xxx)        → voir le pseudo MSP et les rôles choisis (équipe)
+   /profil membre:@x action:changer le pseudo nouveau:xxx
+   /profil membre:@x action:réinitialiser   → il/elle refait le questionnaire
+   Le membre peut changer ses rôles seul(e) avec « Modifier mon profil » ; le pseudo, seule l'équipe peut le changer.
