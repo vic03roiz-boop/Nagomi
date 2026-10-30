@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, PermissionFlagsBits, ChannelType, EmbedBuilder } = require('discord.js');
+const { SlashCommandBuilder, PermissionFlagsBits, ChannelType, EmbedBuilder, MessageFlags } = require('discord.js');
 const rep = require('../../outils/reponses');
 const parametres = require('../../outils/parametres');
 const couleurs = require('../../reglages/couleurs');
@@ -23,6 +23,7 @@ module.exports = {
     const action = i.options.getString('action'); const cat = i.options.getString('categorie'); const r = lire();
     if (action === 'sansfils') { parametres.ecrire('logsFils', null); return rep.repondre(i, rep.ok('Mode fils désactivé : les logs reviennent dans les salons réglés. (Les anciens fils restent, tu peux les supprimer.)')); }
     if (action === 'fils') {
+      await i.deferReply({ flags: MessageFlags.Ephemeral }); // la création des fils prend plus de 3 secondes
       const s = i.options.getChannel('salon'); if (!s) return rep.repondre(i, rep.erreur('Choisis le `salon` (un salon réservé à l\'équipe) : les fils y seront créés.'));
       parametres.ecrire('logsFils', { conteneur: s.id, ids: {} });
       const notes = [];
