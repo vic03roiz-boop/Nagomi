@@ -1,0 +1,3 @@
+Une commande = un fichier. Le nom du fichier = le nom de la commande.
+Les fichiers qui commencent par _ (ex : _outils.js) ne sont PAS des commandes : ce sont des outils partagés.
+Le bot lit tous les fichiers de ces dossiers tout seul au démarrage.
