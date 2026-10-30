@@ -44,7 +44,7 @@ MISE EN LIGNE (une seule fois)
      (sinon les avertissements et réglages sont perdus à chaque redémarrage)
 
 5) Dans les logs Railway tu dois voir :
-        🍵 Nagomi est prête : 40 commandes …
+        🍵 Nagomi est prête : 44 commandes …
 
 ──────────────────────────────────────────────
 PREMIER PARAMÉTRAGE DU SERVEUR
@@ -208,3 +208,24 @@ BIENVENUE ET AU REVOIR
    /profil membre:@x action:changer le pseudo nouveau:xxx
    /profil membre:@x action:réinitialiser   → il/elle refait le questionnaire
    Le membre peut changer ses rôles seul(e) avec « Modifier mon profil » ; le pseudo, seule l'équipe peut le changer.
+
+
+📣🎂🎮 MESSAGES AUTO, ANNIVERSAIRES, MINI-JEUX (v1.13)
+   MESSAGES AUTOMATIQUES (équipe)
+   /auto ajouter salon:#ventes message:Attention aux arnaques ! frequence:chaque semaine [titre:…]
+   /auto liste · /auto tester numero:1 (envoie tout de suite pour voir le rendu) · /auto retirer numero:1
+   Rythmes : toutes les 6 h, 12 h, chaque jour, chaque semaine. Écris \n dans le message pour passer à la ligne.
+
+   ANNIVERSAIRES
+   /anniversaire salon salon:#général  (équipe : le salon où le bot souhaite, chaque jour vers 9 h)
+   /anniversaire definir jour:14 mois:3 · /anniversaire retirer · /anniversaire prochains
+   Seuls le jour et le mois sont gardés (pas d'année ni d'âge : plus respectueux pour les -18).
+
+   MINI-JEUX
+   /pendu       → un mot du monde MSP ; tout le monde tape une lettre (ou le mot entier) dans le salon.
+   /quiz lancer → (équipe) une question, le plus rapide à cliquer la bonne réponse gagne. 30 secondes.
+   /quiz ajouter question:… bonne:… fausse1:… [fausse2, fausse3] → ajoute TES questions. /quiz liste · /quiz retirer
+   (3 questions d'exemple sont déjà là : vérifie-les et ajoute les tiennes !)
+
+   ACTUALITÉS MSP (Instagram) : pas possible proprement (Instagram interdit les robots). Alternative : poste les news
+   toi-même avec /embed ou /dire, ou programme un rappel avec /auto.
