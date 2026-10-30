@@ -1,5 +1,0 @@
-Ici, tu changes l'apparence sans toucher au code :
-  couleurs.js   les couleurs des messages du bot
-  textes.js     le nom, les emojis, les petites phrases
-  structure.js  le plan du serveur créé par /setup (rôles, catégories, salons)
-  messages.js   les textes de bienvenue et d'au revoir
