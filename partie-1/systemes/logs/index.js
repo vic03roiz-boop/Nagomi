@@ -3,6 +3,7 @@
 const { Events, EmbedBuilder, AuditLogEvent, ChannelType } = require('discord.js');
 const parametres = require('../../outils/parametres');
 const couleurs = require('../../reglages/couleurs');
+const fils = require('../../outils/fils');
 
 const CATEGORIES = { messages: '💬 Messages', membres: '👤 Membres', roles: '🎀 Rôles', salons: '📁 Salons', vocal: '🔊 Vocal', moderation: '🔨 Modération' };
 const lireReglages = () => parametres.lire('logs') || { off: [], salons: {} };
@@ -15,7 +16,7 @@ function salonDe(guild, cat) {
 }
 async function envoyer(guild, cat, { titre, description, champs = [], couleur = couleurs.rose, image, auteur }) {
   if (!guild || !actif(cat)) return;
-  const salon = salonDe(guild, cat);
+  const salon = (await fils.cible(guild, cat)) || salonDe(guild, cat);
   if (!salon) return;
   const e = new EmbedBuilder().setColor(couleur).setTitle(titre).setTimestamp().setFooter({ text: CATEGORIES[cat] });
   if (description) e.setDescription(description.slice(0, 4000));
@@ -24,7 +25,7 @@ async function envoyer(guild, cat, { titre, description, champs = [], couleur = 
   if (image) e.setImage(image);
   await salon.send({ embeds: [e], allowedMentions: { parse: [] } }).catch(() => {});
 }
-const ignorer = (guild, canal) => !guild || [parametres.lire('logsChannelId'), ...Object.values(lireReglages().salons || {})].includes(canal?.id);
+const ignorer = (guild, canal) => !guild || fils.sontFils(canal) || fils.sontFils(canal?.parent) || [parametres.lire('logsChannelId'), ...Object.values(lireReglages().salons || {})].includes(canal?.id);
 
 // Qui a fait l'action ? (nécessite la permission "Voir les logs du serveur")
 async function executant(guild, type, cibleId) {

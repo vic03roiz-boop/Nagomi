@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, PermissionFlagsBits, ChannelType, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle,
   StringSelectMenuBuilder, AttachmentBuilder, MessageFlags } = require('discord.js');
 const rep = require('../../outils/reponses');
+const fils = require('../../outils/fils');
 const perms = require('../../outils/permissions');
 const parametres = require('../../outils/parametres');
 const { journaliser } = require('../../outils/journal');
@@ -63,7 +64,7 @@ async function ouvrirTicket(i) {
     .setFooter({ text: textes.pied });
   await salon.send({ content: `${i.user}${staffRole ? ` <@&${staffRole}>` : ''}`, embeds: [e], components: [boutonsTicket(id)],
     allowedMentions: { users: [i.user.id], roles: staffRole ? [staffRole] : [] } });
-  await journaliser(i.guild, { titre: '🎫 Ticket ouvert', champs: [{ name: 'Par', value: `${i.user}`, inline: true }, { name: 'Raison', value: motif.label, inline: true }, { name: 'Salon', value: `${salon}`, inline: true }] });
+  await journaliser(i.guild, { cat: 'tickets', titre: '🎫 Ticket ouvert', champs: [{ name: 'Par', value: `${i.user}`, inline: true }, { name: 'Raison', value: motif.label, inline: true }, { name: 'Salon', value: `${salon}`, inline: true }] });
   await rep.repondre(i, rep.ok(`Ton ticket est ouvert : ${salon}`));
 }
 
@@ -90,7 +91,7 @@ async function fermerTicket(i, t) {
   t.statut = 'ferme'; t.fermePar = i.user.id; t.fermeLe = Date.now(); bd.sauver();
   const duree = Math.max(1, Math.round((t.fermeLe - t.ouvertLe) / 60000));
   const logId = parametres.lire('logsChannelId');
-  const logs = logId ? await i.guild.channels.fetch(logId).catch(() => null) : null;
+  const logs = (await fils.cible(i.guild, 'tickets')) || (logId ? await i.guild.channels.fetch(logId).catch(() => null) : null);
   if (logs) {
     const e = new EmbedBuilder().setColor(couleurs.rose).setTitle(`🎫 Ticket #${t.id} fermé`).setTimestamp()
       .addFields({ name: 'Ouvert par', value: `<@${t.userId}>`, inline: true }, { name: 'Fermé par', value: `${i.user}`, inline: true },

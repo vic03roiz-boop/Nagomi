@@ -229,3 +229,13 @@ BIENVENUE ET AU REVOIR
 
    ACTUALITÉS MSP (Instagram) : pas possible proprement (Instagram interdit les robots). Alternative : poste les news
    toi-même avec /embed ou /dire, ou programme un rappel avec /auto.
+
+
+🧵 LOGS EN FILS PRIVÉS (v1.14)
+   /logs action:fils salon:#logs-staff
+   → Nagomi crée un fil PRIVÉ par catégorie dans ce salon (réservé à l'équipe) :
+     💬 messages · 👤 membres · 🎀 rôles · 📁 salons · 🔊 vocal · 🔨 modération · 🎫 tickets (avec les transcriptions) · 🤖 bot
+   Le bot rouvre un fil archivé, ou le recrée s'il a été supprimé.
+   Permissions à donner au bot dans ce salon : Voir le salon, Créer des fils privés, Envoyer des messages dans les fils, Gérer les fils.
+   Pour que l'équipe voie les fils privés, le bot donne « Gérer les fils » au rôle Équipe sur ce salon (si /config est réglé).
+   /logs action:sans-fils → retour aux salons habituels. /logs action:voir → l'état.
