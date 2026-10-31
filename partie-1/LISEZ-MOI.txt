@@ -44,7 +44,7 @@ MISE EN LIGNE (une seule fois)
      (sinon les avertissements et réglages sont perdus à chaque redémarrage)
 
 5) Dans les logs Railway tu dois voir :
-        🍵 Nagomi est prête : 44 commandes …
+        🍵 Nagomi est prête : 46 commandes …
 
 ──────────────────────────────────────────────
 PREMIER PARAMÉTRAGE DU SERVEUR
@@ -239,3 +239,18 @@ BIENVENUE ET AU REVOIR
    Permissions à donner au bot dans ce salon : Voir le salon, Créer des fils privés, Envoyer des messages dans les fils, Gérer les fils.
    Pour que l'équipe voie les fils privés, le bot donne « Gérer les fils » au rôle Équipe sur ce salon (si /config est réglé).
    /logs action:sans-fils → retour aux salons habituels. /logs action:voir → l'état.
+
+
+🎙️🔢 VOCAUX TEMPORAIRES ET COMPTEUR DE MEMBRES (v1.15)
+   SALONS VOCAUX TEMPORAIRES
+   1. Crée un salon vocal « ➕ Créer mon salon » (dans la catégorie voulue).
+   2. /vocal activer salon:#➕-créer-mon-salon [nom:🍵・{pseudo}]
+   → Quand quelqu'un y entre, Nagomi crée un salon vocal à son nom, l'y déplace, et lui donne le droit de le gérer
+     (renommer, limiter le nombre de places…). Le salon disparaît quand tout le monde est parti.
+   /vocal etat · /vocal desactiver
+   Permissions du bot : Gérer les salons + Déplacer des membres.
+
+   COMPTEUR DE MEMBRES
+   /compteur ajouter salon:#vocal [modele:🌸・Membres : {n}]
+   → le nom du salon affiche le nombre de membres, mis à jour toutes les 10 minutes (limite de Discord).
+   Le salon est fermé à la connexion. /compteur retirer salon:#vocal
