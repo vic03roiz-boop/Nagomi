@@ -197,10 +197,11 @@ module.exports = {
         e.content = `🥀 Il manque encore : **${manque.map((g) => g.titre).join(', ')}**`;
         return i.update(maj(e));
       }
+      await i.deferUpdate(); // les rôles prennent plus de 3 secondes à donner : on prévient Discord tout de suite
       const n = profil.cle(s.pseudo, s.serveur);
-      if (bd.data.pseudos[n] && bd.data.pseudos[n] !== uid) { sessions.delete(uid); return i.update({ content: '', embeds: [rep.erreur('Ce pseudo vient d\'être pris par un autre compte.')], components: [] }); }
+      if (bd.data.pseudos[n] && bd.data.pseudos[n] !== uid) { sessions.delete(uid); return i.editReply({ content: '', embeds: [rep.erreur('Ce pseudo vient d\'être pris par un autre compte.')], components: [] }); }
       const membre = await guild.members.fetch(uid).catch(() => null);
-      if (!membre) return;
+      if (!membre) return i.editReply({ content: '', embeds: [rep.erreur('Je ne te trouve plus sur le serveur 🥀')], components: [] });
       const echecs = await profil.appliquer(membre, s.reponses);
       bd.data.pseudos[n] = uid;
       bd.data.membres[uid] = { pseudo: s.pseudo, serveur: s.serveur, reponses: s.reponses, termine: true, date: fiche?.date || Date.now(), modifie: Date.now() };
@@ -211,7 +212,7 @@ module.exports = {
       const fin = !accepte && regl ? rep.info(`Profil enregistré, **${s.pseudo}** ! Dernière étape : réagis avec ${regl.emoji} au règlement dans <#${regl.channelId}> et le serveur s'ouvrira 🍵`)
         : rep.ok(echecs.length ? "Profil enregistré, mais je n'ai pas pu donner tous tes rôles : préviens l'équipe 🌸"
         : `Bienvenue chez Nagomi, **${s.pseudo}** ! Le salon est ouvert, installe-toi 🍵✨`);
-      return i.update({ content: '', embeds: [fin], components: [] });
+      return i.editReply({ content: '', embeds: [fin], components: [] });
     }
   },
 };
