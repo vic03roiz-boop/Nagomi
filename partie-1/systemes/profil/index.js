@@ -12,6 +12,9 @@ const DEFAUT = [
   { id: 5, titre: 'Ce que tu viens chercher', aide: 'Acheter, vendre, discuter… (facultatif)', multiple: true, obligatoire: false, roles: [] },
 ];
 const bd = ouvrir('profils', { groupes: DEFAUT, membres: {}, pseudos: {}, interdits: [], suivant: 6, reglement: null, accepte: {} });
+// le fichier enregistré avant une mise à jour n'a pas les nouveaux champs : on les ajoute
+bd.data.groupes ||= DEFAUT; bd.data.membres ||= {}; bd.data.pseudos ||= {}; bd.data.interdits ||= [];
+bd.data.accepte ||= {}; if (bd.data.reglement === undefined) bd.data.reglement = null; bd.data.suivant ||= 6;
 
 const norm = (p) => p.trim().toLowerCase().replace(/\s+/g, '');
 // un même pseudo peut exister sur deux serveurs MSP : la clé = pseudo + serveur
