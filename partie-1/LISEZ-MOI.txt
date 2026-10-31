@@ -44,7 +44,7 @@ MISE EN LIGNE (une seule fois)
      (sinon les avertissements et réglages sont perdus à chaque redémarrage)
 
 5) Dans les logs Railway tu dois voir :
-        🍵 Nagomi est prête : 46 commandes …
+        🍵 Nagomi est prête : 47 commandes …
 
 ──────────────────────────────────────────────
 PREMIER PARAMÉTRAGE DU SERVEUR
@@ -254,3 +254,13 @@ BIENVENUE ET AU REVOIR
    /compteur ajouter salon:#vocal [modele:🌸・Membres : {n}]
    → le nom du salon affiche le nombre de membres, mis à jour toutes les 10 minutes (limite de Discord).
    Le salon est fermé à la connexion. /compteur retirer salon:#vocal
+
+
+📊 STATISTIQUES : /stat (v1.16)
+   /stat [membre:@x] → une seule carte avec :
+     💬 messages envoyés (aujourd'hui · 7 jours · 30 jours)
+     🎙️ temps passé en vocal (aujourd'hui · 7 jours · 30 jours)
+     🎀 invitations (actuelles, total, parties)
+     🌸 niveau et rang
+   Le comptage commence le jour de l'installation (rien avant). Le salon vocal AFK n'est pas compté.
+   Les données sont gardées 40 jours (volume Railway).
